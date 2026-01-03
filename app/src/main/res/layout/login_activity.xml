@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".login.LoginActivity">
+
+    <ImageView
+        android:id="@+id/ivFondoAmarillo"
+        android:layout_width="531dp"
+        android:layout_height="1103dp"
+        android:src="@drawable/fondo_gris_azul"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.216"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.433" />
+
+    <TextView
+        android:id="@+id/tvnombreapp"
+        android:layout_width="245dp"
+        android:layout_height="47dp"
+        android:text="Puy du Fou Experience"
+        android:textAlignment="center"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.078" />
+
+    <TextView
+        android:id="@+id/tvInicioSesion"
+        android:layout_width="127dp"
+        android:layout_height="38dp"
+        android:text="@string/inicio_sesion"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvnombreapp"
+        app:layout_constraintVertical_bias="0.037" />
+
+    <TextView
+        android:id="@+id/tvUser"
+        android:layout_width="131dp"
+        android:layout_height="18dp"
+        android:text="@string/usuario"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.057"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvInicioSesion"
+        app:layout_constraintVertical_bias="0.09" />
+
+    <EditText
+        android:id="@+id/etUsuario"
+        android:layout_width="371dp"
+        android:layout_height="37dp"
+        android:ems="10"
+        android:hint="@string/ingrese_el_usuario"
+        android:inputType="text"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvUser"
+        app:layout_constraintVertical_bias="0.042" />
+
+    <TextView
+        android:id="@+id/tvPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/contrasenia"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/ivFondoAmarillo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.047"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etUsuario"
+        app:layout_constraintVertical_bias="0.106" />
+
+    <EditText
+        android:id="@+id/etContrasenia"
+        android:layout_width="374dp"
+        android:layout_height="40dp"
+        android:ems="10"
+        android:hint="@string/ingrese_la_contrasenia"
+        android:inputType="text"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.432"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvPassword"
+        app:layout_constraintVertical_bias="0.112" />
+
+    <Button
+        android:id="@+id/bttnAcceder"
+        android:layout_width="156dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="160dp"
+        android:layout_marginEnd="161dp"
+        android:backgroundTint="#6B4A89"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:textSize="19sp"
+        android:text="@string/acceder"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etContrasenia"
+        app:layout_constraintVertical_bias="0.535" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

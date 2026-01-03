@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="888dp"
+        android:layout_height="1076dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/fondo_gris_azul" />
+
+    <TextView
+        android:id="@+id/tvIdioma"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/idioma"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.043"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.053"
+        android:textColor="#000000" />
+
+    <RadioGroup
+        android:id="@+id/rgIdioma"
+        android:layout_width="385dp"
+        android:layout_height="96dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.47"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvIdioma"
+        app:layout_constraintVertical_bias="0.034">
+
+        <RadioButton
+            android:id="@+id/rbEspaniol"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/espaniol"
+            android:textColor="#000000" />
+
+        <RadioButton
+            android:id="@+id/rbIngles"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/ingles"
+            android:textColor="#000000" />
+
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/tvNotificaciones"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/notificaciones"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.045"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rgIdioma"
+        app:layout_constraintVertical_bias="0.116"
+        android:textColor="#000000" />
+
+    <Switch
+        android:id="@+id/switchNotificaciones"
+        android:layout_width="379dp"
+        android:layout_height="27dp"
+        android:text="@string/activar_desactivar_las_notificaciones"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvNotificaciones"
+        app:layout_constraintVertical_bias="0.048"/>
+
+    <TextView
+        android:id="@+id/tvTema"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tema"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.045"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/switchNotificaciones"
+        app:layout_constraintVertical_bias="0.218"
+        android:textColor="#000000" />
+
+    <RadioGroup
+        android:id="@+id/rgTema"
+        android:layout_width="378dp"
+        android:layout_height="96dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.451"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTema"
+        app:layout_constraintVertical_bias="0.131">
+
+        <RadioButton
+            android:id="@+id/rbClaro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/claro"
+            android:textColor="#000000" />
+
+        <RadioButton
+            android:id="@+id/rbOscuro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/oscuro"
+            android:textColor="#000000" />
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/bttnGuardar"
+        android:layout_width="304dp"
+        android:layout_height="44dp"
+        android:backgroundTint="#6B4A89"
+        android:text="@string/guardar_cambios"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rgTema" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Name app-->
+    <string name="app_name">Puy du Fou Experience</string>
+    <!--Log in-->
+    <string name="inicio_sesion">Log in</string>
+    <string name="usuario">Username:</string>
+    <string name="ingrese_el_usuario">Enter the username</string>
+    <string name="contrasenia">Password:</string>
+    <string name="ingrese_la_contrasenia">Enter the password</string>
+    <string name="acceder">Access</string>
+    <!--Botones del menú-->
+    <string name="espectaculos">Shows</string>
+    <string name="mapa">Map</string>
+    <string name="favoritos">Favorites</string>
+    <string name="ajustes">Settings</string>
+    <!--Settings-->
+    <string name="idioma">Language:</string>
+    <string name="espaniol">Spanish</string>
+    <string name="ingles">English</string>
+    <string name="notificaciones">Notifications:</string>
+    <string name="activar_desactivar_las_notificaciones">Enable/Disable notifications</string>
+    <string name="tema">Theme:</string>
+    <string name="claro">Light</string>
+    <string name="oscuro">Dark</string>
+    <string name="guardar_cambios">Save changes</string>
+
+</resources>
