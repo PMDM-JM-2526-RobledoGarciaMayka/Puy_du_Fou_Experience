@@ -8,8 +8,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvfavoritos"
-        android:layout_width="412dp"
-        android:layout_height="759dp"
+        android:layout_width="411dp"
+        android:layout_height="673dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

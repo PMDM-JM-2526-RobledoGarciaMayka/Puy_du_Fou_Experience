@@ -3,12 +3,12 @@ package com.example.puy_du_fou_experience.navegacion_menu
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.example.puy_du_fou_experience.fragments.AjustesFragment
-import com.example.puy_du_fou_experience.fragments.EspectaculosFragment
-import com.example.puy_du_fou_experience.fragments.FavoritosFragment
-import com.example.puy_du_fou_experience.fragments.MapaFragment
 import com.example.puy_du_fou_experience.R
 import com.example.puy_du_fou_experience.databinding.MenuActivityBinding
+import com.example.puy_du_fou_experience.fragments.AjustesFragment
+import com.example.puy_du_fou_experience.fragments.EspectaculosFragment
+import com.example.puy_du_fou_experience.fragments.MapaFragment
+import com.example.puydufouexperience.fragments.FavoritosFragment
 
 class MenuActivity : AppCompatActivity() {
 
@@ -40,4 +40,6 @@ class MenuActivity : AppCompatActivity() {
             .replace(R.id.fragment_container, fragment)
             .commit()
     }
+
+
 }

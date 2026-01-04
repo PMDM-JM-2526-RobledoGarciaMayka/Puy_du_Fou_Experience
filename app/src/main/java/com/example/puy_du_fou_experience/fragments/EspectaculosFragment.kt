@@ -6,14 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.puy_du_fou_experience.R
 import com.example.puy_du_fou_experience.adapter.EspectaculosAdapter
 import com.example.puy_du_fou_experience.databinding.FragmentEspectaculosBinding
-import com.example.puy_du_fou_experience.model.Espectaculo
 import com.example.puy_du_fou_experience.viewmodel.EspectaculosViewModel
 import com.example.puydufouexperience.fragments.DetalleEspectaculosFragment
+
 
 
 class EspectaculosFragment : Fragment() {

@@ -72,6 +72,7 @@ class AjustesFragment : Fragment() {
             aplicarIdioma(idioma)
             aplicarTema(tema)
         }
+
     }
 
     private fun aplicarIdioma(codigoIdioma: String) {
