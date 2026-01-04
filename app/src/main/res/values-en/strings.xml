@@ -9,7 +9,7 @@
     <string name="contrasenia">Password:</string>
     <string name="ingrese_la_contrasenia">Enter the password</string>
     <string name="acceder">Access</string>
-    <!--Botones del menú-->
+    <!--Menú-->
     <string name="espectaculos">Shows</string>
     <string name="mapa">Map</string>
     <string name="favoritos">Favorites</string>
