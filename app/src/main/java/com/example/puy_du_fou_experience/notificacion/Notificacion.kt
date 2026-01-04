@@ -47,6 +47,6 @@ class Notificacion : BroadcastReceiver() {
             .build()
 
         notificationManager.notify(NOTIFICATION_ID, notificacion)
-        Log.d("NOTIFICACION", "✅ Notificación mostrada")
+        Log.d("NOTIFICACION", "Notificación mostrada")
     }
 }

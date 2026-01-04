@@ -5,10 +5,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.puy_du_fou_experience.databinding.FragmentAjustesBinding
+import com.example.puy_du_fou_experience.notificacion.ActivarDesactivarNotificaciones
 import com.example.puy_du_fou_experience.viewmodel.AjustesViewModel
 import java.util.Locale
 
@@ -16,6 +18,9 @@ class AjustesFragment : Fragment() {
     private lateinit var viewModel: AjustesViewModel
     private var _binding: FragmentAjustesBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var notificacionesSharedPrefs: ActivarDesactivarNotificaciones
+
 
 
     override fun onCreateView(
@@ -28,6 +33,25 @@ class AjustesFragment : Fragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        notificacionesSharedPrefs = ActivarDesactivarNotificaciones(requireContext())
+
+        binding.switchNotificaciones.isChecked = notificacionesSharedPrefs.activadas()
+
+        binding.switchNotificaciones.setOnCheckedChangeListener { _, isChecked ->
+            notificacionesSharedPrefs.setActivadas(isChecked)
+            val mensaje = if (isChecked) {
+                "Notificaciones activadas"
+            } else {
+                "Notificaciones desactivadas"
+            }
+            Toast.makeText(
+                requireContext(),
+                mensaje,
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+        // Inicializar ViewModel
 
         viewModel = ViewModelProvider(this)[AjustesViewModel::class.java]
 

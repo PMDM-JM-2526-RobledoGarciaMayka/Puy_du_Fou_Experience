@@ -15,9 +15,9 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.puy_du_fou_experience.databinding.FragmentDetalleEspectaculosBinding
 import com.example.puy_du_fou_experience.manager.FavoritosManager
+import com.example.puy_du_fou_experience.notificacion.ActivarDesactivarNotificaciones
 import com.example.puy_du_fou_experience.notificacion.NotificationHelper
 import com.example.puy_du_fou_experience.notificacion.ProgramacionNotificacion
-
 
 class DetalleEspectaculosFragment : Fragment() {
     private var _binding: FragmentDetalleEspectaculosBinding? = null
@@ -26,14 +26,7 @@ class DetalleEspectaculosFragment : Fragment() {
     private var pendienteNombre: String? = null
     private var pendienteHorarios: String? = null
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentDetalleEspectaculosBinding.inflate(inflater, container, false)
-        return binding.root
-    }
+    private lateinit var notifPrefs: ActivarDesactivarNotificaciones
 
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
@@ -58,13 +51,24 @@ class DetalleEspectaculosFragment : Fragment() {
         pendienteHorarios = null
     }
 
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentDetalleEspectaculosBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // ← AÑADIR ESTO
+        // Crear canal de notificación
         NotificationHelper.crearCanalNotificacion(requireContext())
         Log.d("DETALLE_FRAGMENT", "Canal de notificación creado")
+
+        // Inicializar preferencias de notificaciones
+        notifPrefs = ActivarDesactivarNotificaciones(requireContext())  // ← AÑADIR
 
         val nombre = arguments?.getString("nombre") ?: ""
         val imagen = arguments?.getInt("imagen") ?: 0
@@ -91,8 +95,10 @@ class DetalleEspectaculosFragment : Fragment() {
             toggleFav.setOnCheckedChangeListener { _, isChecked ->
                 if (isChecked) {
                     favManager.agregarFavorito(nombre)
+                    Toast.makeText(requireContext(), "Añadido a favoritos", Toast.LENGTH_SHORT).show()
                 } else {
                     favManager.quitarFavorito(nombre)
+                    Toast.makeText(requireContext(), "Eliminado de favoritos", Toast.LENGTH_SHORT).show()
                 }
             }
 
@@ -101,6 +107,18 @@ class DetalleEspectaculosFragment : Fragment() {
                 Log.d("DETALLE_FRAGMENT", "========================================")
                 Log.d("DETALLE_FRAGMENT", "BOTÓN RECORDATORIO PRESIONADO")
                 Log.d("DETALLE_FRAGMENT", "========================================")
+
+                // ← VERIFICAR SI LAS NOTIFICACIONES ESTÁN HABILITADAS
+                if (!notifPrefs.activadas()) {
+                    Toast.makeText(
+                        requireContext(),
+                        "Las notificaciones están desactivadas.\nActívalas en Ajustes.",
+                        Toast.LENGTH_LONG
+                    ).show()
+                    Log.d("DETALLE_FRAGMENT", "Notificaciones deshabilitadas en Ajustes")
+                    return@setOnClickListener
+                }
+
                 verificarPermisoYCrearRecordatorio(nombre, horarios)
             }
         }
@@ -219,7 +237,7 @@ class DetalleEspectaculosFragment : Fragment() {
             Log.e("RECORDATORIO", "El horario ya pasó")
             Toast.makeText(
                 requireContext(),
-                "⚠El horario $primerHorario ya ha pasado hoy",
+                "El horario $primerHorario ya ha pasado hoy",
                 Toast.LENGTH_LONG
             ).show()
             Log.d("RECORDATORIO", "========================================")
@@ -267,14 +285,12 @@ class DetalleEspectaculosFragment : Fragment() {
 
             Log.d("CALCULO_TIEMPO", "Hora del espectáculo: $hora:$minutos")
 
-            // Restar 15 minutos
             calendar.add(Calendar.MINUTE, -15)
 
             val horaNotif = calendar.get(Calendar.HOUR_OF_DAY)
             val minNotif = calendar.get(Calendar.MINUTE)
             Log.d("CALCULO_TIEMPO", "Hora de notificación (15 min antes): $horaNotif:$minNotif")
 
-            // Si ya pasó, programar para mañana
             if (calendar.timeInMillis <= System.currentTimeMillis()) {
                 Log.d("CALCULO_TIEMPO", "Ya pasó, programando para MAÑANA")
                 calendar.add(Calendar.DAY_OF_YEAR, 1)
@@ -299,3 +315,4 @@ class DetalleEspectaculosFragment : Fragment() {
         _binding = null
     }
 }
+

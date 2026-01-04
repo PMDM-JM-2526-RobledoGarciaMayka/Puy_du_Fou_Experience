@@ -51,7 +51,7 @@ object ProgramacionNotificacion {
                 Log.d("PROGRAMACION", "¿Puede usar alarmas exactas? $puedeUsarAlarmasExactas")
 
                 if (!puedeUsarAlarmasExactas) {
-                    Log.e("PROGRAMACION", "❌ NO TIENE PERMISO PARA ALARMAS EXACTAS")
+                    Log.e("PROGRAMACION", "NO TIENE PERMISO PARA ALARMAS EXACTAS")
                     Log.e("PROGRAMACION", "Redirigiendo a configuración...")
 
                     // Redirigir a la configuración para activar el permiso
@@ -61,7 +61,7 @@ object ProgramacionNotificacion {
 
                     Toast.makeText(
                         context,
-                        "⚠️ Activa 'Alarmas y recordatorios' para recibir notificaciones",
+                        "Activa 'Alarmas y recordatorios' para recibir notificaciones",
                         Toast.LENGTH_LONG
                     ).show()
                     return
@@ -75,51 +75,32 @@ object ProgramacionNotificacion {
                     tiempoEnMillis,
                     pendingIntent
                 )
-                Log.d("PROGRAMACION", "✅ Alarma programada con setExactAndAllowWhileIdle")
+                Log.d("PROGRAMACION", "Alarma programada con setExactAndAllowWhileIdle")
             } else {
                 alarmManager.setExact(
                     AlarmManager.RTC_WAKEUP,
                     tiempoEnMillis,
                     pendingIntent
                 )
-                Log.d("PROGRAMACION", "✅ Alarma programada con setExact")
+                Log.d("PROGRAMACION", "Alarma programada con setExact")
             }
 
             Log.d("PROGRAMACION", "========================================")
 
         } catch (e: SecurityException) {
-            Log.e("PROGRAMACION", "❌ SecurityException: ${e.message}")
+            Log.e("PROGRAMACION", "SecurityException: ${e.message}")
             Log.e("PROGRAMACION", "Falta permiso SCHEDULE_EXACT_ALARM en el Manifest")
             e.printStackTrace()
 
             Toast.makeText(
                 context,
-                "❌ Error: No se puede programar la alarma",
+                "Error: No se puede programar la alarma",
                 Toast.LENGTH_LONG
             ).show()
 
         } catch (e: Exception) {
-            Log.e("PROGRAMACION", "❌ Error al programar alarma: ${e.message}")
+            Log.e("PROGRAMACION", "Error al programar alarma: ${e.message}")
             e.printStackTrace()
         }
-    }
-
-    fun programarNotificacionPrueba(context: Context, segundos: Int = 10) {
-        val calendar = Calendar.getInstance().apply {
-            add(Calendar.SECOND, segundos)
-        }
-
-        Log.d("PROGRAMACION", "========================================")
-        Log.d("PROGRAMACION", "=== NOTIFICACIÓN DE PRUEBA ===")
-        Log.d("PROGRAMACION", "Se enviará en $segundos segundos")
-        Log.d("PROGRAMACION", "Hora: ${calendar.time}")
-        Log.d("PROGRAMACION", "========================================")
-
-        programarNotificacion(
-            context,
-            "🧪 Prueba de Notificación",
-            "Ahora",
-            calendar.timeInMillis
-        )
     }
 }
