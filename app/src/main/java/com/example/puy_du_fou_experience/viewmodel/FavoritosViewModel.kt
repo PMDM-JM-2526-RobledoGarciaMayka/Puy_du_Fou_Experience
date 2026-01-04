@@ -6,7 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.puy_du_fou_experience.data.EspectaculosDataBase
-import com.example.puy_du_fou_experience.manager.FavoritosManager
+import com.example.puy_du_fou_experience.otras_utilidades.manager.FavoritosManager
 import com.example.puy_du_fou_experience.model.Espectaculo
 import com.example.puy_du_fou_experience.repository.EspectaculosRepository
 import kotlinx.coroutines.launch

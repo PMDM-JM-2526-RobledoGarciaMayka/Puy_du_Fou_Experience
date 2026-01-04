@@ -1,4 +1,4 @@
-package com.example.puy_du_fou_experience.fragments
+package com.example.puy_du_fou_experience.view.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater

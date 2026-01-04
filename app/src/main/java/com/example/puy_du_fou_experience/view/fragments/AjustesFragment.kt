@@ -1,4 +1,4 @@
-package com.example.puy_du_fou_experience.fragments
+package com.example.puy_du_fou_experience.view.fragments
 
 import android.content.res.Configuration
 import android.os.Bundle
@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.puy_du_fou_experience.databinding.FragmentAjustesBinding
-import com.example.puy_du_fou_experience.notificacion.ActivarDesactivarNotificaciones
+import com.example.puy_du_fou_experience.otras_utilidades.notificacion.ActivarDesactivarNotificaciones
 import com.example.puy_du_fou_experience.viewmodel.AjustesViewModel
 import java.util.Locale
 

@@ -1,4 +1,4 @@
-package com.example.puy_du_fou_experience.notificacion
+package com.example.puy_du_fou_experience.otras_utilidades.notificacion
 
 import android.app.NotificationChannel
 import android.app.NotificationManager

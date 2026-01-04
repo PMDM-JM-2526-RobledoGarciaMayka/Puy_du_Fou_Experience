@@ -42,20 +42,20 @@ abstract class EspectaculosDataBase : RoomDatabase() {
         private fun datosIniciales(): List<Espectaculo> {
             return listOf(
                 Espectaculo(
-                titulo = "El Tambor de la Libertad",
-                imagen = R.drawable.eltambor,
-                descripcion = "Épica de la resistencia de Toledo en 1812 contra las tropas de Napoleón.",
-                horarios = "21:34",
-                duracion = "30 minutos aprox.",
-                zona = "Al aire libre (Próximo a La Venta de Isidro)",
-                precio = 10.00,
-                resticcionEdad = "18 años"
+                    titulo = "El Tambor de la Libertad",
+                    imagen = R.drawable.eltambor,
+                    descripcion = "Épica de la resistencia de Toledo en 1812 contra las tropas de Napoleón.",
+                    horarios = "17:30",
+                    duracion = "30 minutos aprox.",
+                    zona = "Al aire libre (Próximo a La Venta de Isidro)",
+                    precio = 10.00,
+                    resticcionEdad = "18 años"
                 ),
                 Espectaculo(
                     titulo = "El Último Cantar",
                     imagen = R.drawable.elultimocantar,
                     descripcion = "Las hazañas del Cid Campeador en un teatro con una espectacular grada giratoria.",
-                    horarios = "20:00",
+                    horarios = "19:00",
                     duracion = "30 minutos",
                     zona = "Interior (La Puebla Real)",
                     precio = 5.00,

@@ -1,4 +1,4 @@
-package com.example.puy_du_fou_experience.login
+package com.example.puy_du_fou_experience.view.login
 
 import android.content.Intent
 import android.content.SharedPreferences
@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.puy_du_fou_experience.databinding.LoginActivityBinding
-import com.example.puy_du_fou_experience.navegacion_menu.MenuActivity
+import com.example.puy_du_fou_experience.view.navegacion_menu.MenuActivity
 
 class LoginActivity : AppCompatActivity() {
 

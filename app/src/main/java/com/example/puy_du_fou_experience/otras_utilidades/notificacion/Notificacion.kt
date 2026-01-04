@@ -1,14 +1,13 @@
-package com.example.puy_du_fou_experience.notificacion
+package com.example.puy_du_fou_experience.otras_utilidades.notificacion
 
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import androidx.core.app.NotificationCompat
 import com.example.puy_du_fou_experience.R
-import com.example.puy_du_fou_experience.navegacion_menu.MenuActivity
+import com.example.puy_du_fou_experience.view.navegacion_menu.MenuActivity
 
 class Notificacion : BroadcastReceiver() {
 
@@ -17,15 +16,10 @@ class Notificacion : BroadcastReceiver() {
     }
 
     override fun onReceive(context: Context?, intent: Intent?) {
-        Log.d("NOTIFICACION", "=== BROADCAST RECIBIDO ===")
-
         context ?: return
 
         val tituloEspectaculo = intent?.getStringExtra("titulo") ?: "Espectáculo"
         val horario = intent?.getStringExtra("horario") ?: ""
-
-        Log.d("NOTIFICACION", "Título: $tituloEspectaculo")
-        Log.d("NOTIFICACION", "Horario: $horario")
 
         val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
@@ -38,7 +32,7 @@ class Notificacion : BroadcastReceiver() {
         )
 
         val notificacion = NotificationCompat.Builder(context, NotificationHelper.CHANNEL_ID)
-            .setContentTitle("¡$tituloEspectaculo está por comenzar!")
+            .setContentTitle("¡$tituloEspectaculo va a comenzar en 15 minutos!")
             .setContentText("El espectáculo comienza a las $horario")
             .setSmallIcon(R.drawable.ic_launcher_foreground)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
@@ -47,6 +41,5 @@ class Notificacion : BroadcastReceiver() {
             .build()
 
         notificationManager.notify(NOTIFICATION_ID, notificacion)
-        Log.d("NOTIFICACION", "Notificación mostrada")
     }
 }

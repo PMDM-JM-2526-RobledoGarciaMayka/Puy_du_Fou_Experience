@@ -1,4 +1,4 @@
-package com.example.puy_du_fou_experience.manager
+package com.example.puy_du_fou_experience.otras_utilidades.manager
 
 import android.content.Context
 
