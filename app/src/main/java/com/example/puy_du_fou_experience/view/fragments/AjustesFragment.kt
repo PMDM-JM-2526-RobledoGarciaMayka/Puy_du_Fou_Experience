@@ -21,21 +21,21 @@ class AjustesFragment : Fragment() {
 
     private lateinit var notificacionesSharedPrefs: ActivarDesactivarNotificaciones
 
-
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentAjustesBinding.inflate(inflater, container, false)
-        val view = binding.root
-        return view
+        return binding.root
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         notificacionesSharedPrefs = ActivarDesactivarNotificaciones(requireContext())
+        viewModel = ViewModelProvider(this)[AjustesViewModel::class.java]
 
+        // Configurar el switch de notificaciones
         binding.switchNotificaciones.isChecked = notificacionesSharedPrefs.activadas()
 
         binding.switchNotificaciones.setOnCheckedChangeListener { _, isChecked ->
@@ -45,17 +45,10 @@ class AjustesFragment : Fragment() {
             } else {
                 "Notificaciones desactivadas"
             }
-            Toast.makeText(
-                requireContext(),
-                mensaje,
-                Toast.LENGTH_SHORT
-            ).show()
+            Toast.makeText(requireContext(), mensaje, Toast.LENGTH_SHORT).show()
         }
-        // Inicializar ViewModel
 
-        viewModel = ViewModelProvider(this)[AjustesViewModel::class.java]
-
-        // Cargar ajustes actuales
+        // Observar ajustes del ViewModel y actualizar UI
         viewModel.idiomaSeleccionado.observe(viewLifecycleOwner) { idioma ->
             when (idioma) {
                 "es" -> binding.rgIdioma.check(binding.rbEspaniol.id)
@@ -95,8 +88,9 @@ class AjustesFragment : Fragment() {
             // Aplicar cambios
             aplicarIdioma(idioma)
             aplicarTema(tema)
-        }
 
+            Toast.makeText(requireContext(), "Ajustes guardados", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun aplicarIdioma(codigoIdioma: String) {
@@ -106,7 +100,10 @@ class AjustesFragment : Fragment() {
         val config = Configuration()
         config.setLocale(locale)
 
-        requireContext().resources.updateConfiguration(config, requireContext().resources.displayMetrics)
+        requireContext().resources.updateConfiguration(
+            config,
+            requireContext().resources.displayMetrics
+        )
 
         // Reiniciar actividad para aplicar cambios
         activity?.recreate()
