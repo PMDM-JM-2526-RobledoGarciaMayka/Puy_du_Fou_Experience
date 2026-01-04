@@ -1,20 +1,29 @@
 package com.example.puydufouexperience.fragments
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.icu.util.Calendar
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.puy_du_fou_experience.databinding.FragmentDetalleEspectaculosBinding
 import com.example.puy_du_fou_experience.manager.FavoritosManager
-import com.example.puy_du_fou_experience.notificacion.NotificationSchedule
+import com.example.puy_du_fou_experience.notificacion.ProgramacionNotificacion
 
 
 class DetalleEspectaculosFragment : Fragment() {
     private var _binding: FragmentDetalleEspectaculosBinding? = null
     private val binding get() = _binding!!
+
+    private var pendienteNombre: String? = null
+    private var pendienteHorarios: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -24,6 +33,30 @@ class DetalleEspectaculosFragment : Fragment() {
         _binding = FragmentDetalleEspectaculosBinding.inflate(inflater, container, false)
         return binding.root
     }
+
+    private val requestPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted ->
+        Log.d("DETALLE_FRAGMENT", "Resultado permiso: $isGranted")
+
+        if (isGranted) {
+            Toast.makeText(requireContext(), "Permiso concedido", Toast.LENGTH_SHORT).show()
+
+            if (pendienteNombre != null && pendienteHorarios != null) {
+                crearRecordatorio(pendienteNombre!!, pendienteHorarios!!)
+            }
+        } else {
+            Toast.makeText(
+                requireContext(),
+                "Sin permiso no puedes recibir notificaciones",
+                Toast.LENGTH_LONG
+            ).show()
+        }
+
+        pendienteNombre = null
+        pendienteHorarios = null
+    }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -61,89 +94,197 @@ class DetalleEspectaculosFragment : Fragment() {
 
             // Botón de recordatorio
             btnRecordatorio.setOnClickListener {
-                NotificationSchedule.programarNotificacionPrueba(requireContext(), 5)
-                crearRecordatorio(nombre, horarios)
+                Log.d("DETALLE_FRAGMENT", "========================================")
+                Log.d("DETALLE_FRAGMENT", "BOTÓN RECORDATORIO PRESIONADO")
+                Log.d("DETALLE_FRAGMENT", "========================================")
+                verificarPermisoYCrearRecordatorio( nombre, horarios)
             }
         }
     }
 
+    private fun verificarPermisoYCrearRecordatorio(nombreEspectaculo: String, horarios: String) {
+        Log.d("DETALLE_FRAGMENT", "--- Verificando permisos ---")
+        Log.d("DETALLE_FRAGMENT", "Android version: ${Build.VERSION.SDK_INT}")
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            val tienePermiso = ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.POST_NOTIFICATIONS
+            ) == PackageManager.PERMISSION_GRANTED
+
+            Log.d("DETALLE_FRAGMENT", "¿Tiene permiso POST_NOTIFICATIONS? $tienePermiso")
+
+            when {
+                tienePermiso -> {
+                    Log.d("DETALLE_FRAGMENT", "Permiso concedido, creando recordatorio")
+                    crearRecordatorio(nombreEspectaculo, horarios)
+                }
+                else -> {
+                    Log.d("DETALLE_FRAGMENT", "Sin permiso, solicitando...")
+                    pendienteNombre = nombreEspectaculo
+                    pendienteHorarios = horarios
+
+                    Toast.makeText(
+                        requireContext(),
+                        "Se necesita permiso para crear recordatorios",
+                        Toast.LENGTH_SHORT
+                    ).show()
+
+                    requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+                }
+            }
+        } else {
+            Log.d("DETALLE_FRAGMENT", "Android < 13, no necesita permiso")
+            crearRecordatorio(nombreEspectaculo, horarios)
+        }
+    }
+
     private fun crearRecordatorio(nombreEspectaculo: String, horarios: String) {
+        Log.d("RECORDATORIO", "========================================")
+        Log.d("RECORDATORIO", "=== INICIO CREAR RECORDATORIO ===")
+        Log.d("RECORDATORIO", "========================================")
+        Log.d("RECORDATORIO", "Nombre: '$nombreEspectaculo'")
+        Log.d("RECORDATORIO", "Horarios raw: '$horarios'")
+
         if (nombreEspectaculo.isEmpty() || horarios.isEmpty()) {
+            Log.e("RECORDATORIO", "ERROR: Datos incompletos")
             Toast.makeText(requireContext(), "Error: Datos incompletos", Toast.LENGTH_SHORT).show()
             return
         }
 
-        // Extraer el primer horario de la cadena
-        // Ejemplo: "14:00, 16:30, 18:00" -> "14:00"
         val primerHorario = horarios
-            .replace("Horario:", "")  // Por si viene con el prefijo
+            .replace("Horario:", "")
+            .replace("Horario", "")
             .trim()
             .split(",")
             .firstOrNull()
             ?.trim()
 
+        Log.d("RECORDATORIO", "Primer horario extraído: '$primerHorario'")
+
         if (primerHorario.isNullOrEmpty()) {
+            Log.e("RECORDATORIO", "ERROR: Horario no válido")
             Toast.makeText(requireContext(), "Error: Horario no válido", Toast.LENGTH_SHORT).show()
             return
         }
 
-        // Calcular tiempo para la notificación
         val tiempoNotificacion = calcularTiempoNotificacion(primerHorario)
+        val tiempoActual = System.currentTimeMillis()
+        val diferenciaMinutos = (tiempoNotificacion - tiempoActual) / 1000 / 60
 
-        if (tiempoNotificacion > System.currentTimeMillis()) {
-            // Programar notificación
-            NotificationSchedule.programarNotificacion(
+        Log.d("RECORDATORIO", "Tiempo notificación: $tiempoNotificacion")
+        Log.d("RECORDATORIO", "Tiempo actual: $tiempoActual")
+        Log.d("RECORDATORIO", "Diferencia: $diferenciaMinutos minutos")
+
+        if (tiempoNotificacion > tiempoActual) {
+            Log.d("RECORDATORIO", "Tiempo válido, programando...")
+
+            ProgramacionNotificacion.programarNotificacion(
                 requireContext(),
                 nombreEspectaculo,
                 primerHorario,
                 tiempoNotificacion
             )
 
-            Toast.makeText(
-                requireContext(),
-                "Recordatorio creado para las $primerHorario\n(15 minutos antes)",
-                Toast.LENGTH_LONG
-            ).show()
+            val calendario = Calendar.getInstance().apply {
+                timeInMillis = tiempoNotificacion
+            }
+
+            val horaNotif = String.format(
+                "%02d:%02d",
+                calendario.get(Calendar.HOUR_OF_DAY),
+                calendario.get(Calendar.MINUTE)
+            )
+
+            val diaNotif = calendario.get(Calendar.DAY_OF_MONTH)
+            val ahora = Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
+            val esManana = diaNotif != ahora
+
+            val mensaje = if (esManana) {
+                "Recordatorio creado\nEspectáculo: $primerHorario (mañana)\nTe avisaremos a las: $horaNotif"
+            } else {
+                "Recordatorio creado\nEspectáculo: $primerHorario (hoy)\nTe avisaremos a las: $horaNotif"
+            }
+
+            Toast.makeText(requireContext(), mensaje, Toast.LENGTH_LONG).show()
+
+            Log.d("RECORDATORIO", "Recordatorio programado exitosamente")
+            Log.d("RECORDATORIO", "Hora notificación: $horaNotif ${if (esManana) "(mañana)" else "(hoy)"}")
+            Log.d("RECORDATORIO", "========================================")
         } else {
+            Log.e("RECORDATORIO", "El horario ya pasó")
             Toast.makeText(
                 requireContext(),
-                "El horario $primerHorario ya ha pasado hoy",
+                "⚠El horario $primerHorario ya ha pasado hoy",
                 Toast.LENGTH_LONG
             ).show()
+            Log.d("RECORDATORIO", "========================================")
         }
     }
 
     private fun calcularTiempoNotificacion(horario: String): Long {
+        Log.d("CALCULO_TIEMPO", "--- Calculando tiempo ---")
+        Log.d("CALCULO_TIEMPO", "Horario recibido: '$horario'")
+
         try {
-            // Parsear horario (formato esperado: "14:00" o "14:30")
             val partes = horario.split(":")
-            if (partes.size != 2) return 0L
+            Log.d("CALCULO_TIEMPO", "Partes separadas: ${partes.size} -> $partes")
 
-            val hora = partes[0].toIntOrNull() ?: return 0L
-            val minutos = partes[1].toIntOrNull() ?: return 0L
+            if (partes.size != 2) {
+                Log.e("CALCULO_TIEMPO", "Error: formato incorrecto (esperado HH:MM)")
+                return 0L
+            }
 
-            // Validar rangos
-            if (hora !in 0..23 || minutos !in 0..59) return 0L
+            val hora = partes[0].toIntOrNull()
+            val minutos = partes[1].toIntOrNull()
 
-            // Crear Calendar para hoy a esa hora
+            Log.d("CALCULO_TIEMPO", "Hora parseada: $hora")
+            Log.d("CALCULO_TIEMPO", "Minutos parseados: $minutos")
+
+            if (hora == null || minutos == null) {
+                Log.e("CALCULO_TIEMPO", "Error: no se pudo parsear a números")
+                return 0L
+            }
+
+            if (hora !in 0..23 || minutos !in 0..59) {
+                Log.e("CALCULO_TIEMPO", "Error: hora/minutos fuera de rango")
+                return 0L
+            }
+
+            val ahora = Calendar.getInstance()
+            Log.d("CALCULO_TIEMPO", "Hora actual: ${ahora.get(Calendar.HOUR_OF_DAY)}:${ahora.get(Calendar.MINUTE)}")
+
             val calendar = Calendar.getInstance().apply {
                 set(Calendar.HOUR_OF_DAY, hora)
                 set(Calendar.MINUTE, minutos)
                 set(Calendar.SECOND, 0)
                 set(Calendar.MILLISECOND, 0)
-
-                // Restar 15 minutos para notificar ANTES del espectáculo
-                add(Calendar.MINUTE, -15)
             }
 
-            // Si la hora ya pasó hoy, programar para mañana
+            Log.d("CALCULO_TIEMPO", "Hora del espectáculo: $hora:$minutos")
+
+            // Restar 15 minutos
+            calendar.add(Calendar.MINUTE, -15)
+
+            val horaNotif = calendar.get(Calendar.HOUR_OF_DAY)
+            val minNotif = calendar.get(Calendar.MINUTE)
+            Log.d("CALCULO_TIEMPO", "Hora de notificación (15 min antes): $horaNotif:$minNotif")
+
+            // Si ya pasó, programar para mañana
             if (calendar.timeInMillis <= System.currentTimeMillis()) {
+                Log.d("CALCULO_TIEMPO", "Ya pasó, programando para MAÑANA")
                 calendar.add(Calendar.DAY_OF_YEAR, 1)
+            } else {
+                Log.d("CALCULO_TIEMPO", "Programando para HOY")
             }
+
+            Log.d("CALCULO_TIEMPO", "Fecha/hora final: ${calendar.time}")
+            Log.d("CALCULO_TIEMPO", "Timestamp: ${calendar.timeInMillis}")
 
             return calendar.timeInMillis
 
         } catch (e: Exception) {
+            Log.e("CALCULO_TIEMPO", "EXCEPCIÓN: ${e.message}")
             e.printStackTrace()
             return 0L
         }

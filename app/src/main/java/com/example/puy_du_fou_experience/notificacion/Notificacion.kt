@@ -5,6 +5,7 @@ import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import androidx.core.app.NotificationCompat
 import com.example.puy_du_fou_experience.R
 import com.example.puy_du_fou_experience.navegacion_menu.MenuActivity
@@ -16,11 +17,15 @@ class Notificacion : BroadcastReceiver() {
     }
 
     override fun onReceive(context: Context?, intent: Intent?) {
+        Log.d("NOTIFICACION", "=== BROADCAST RECIBIDO ===")
+
         context ?: return
 
-        // Obtener datos del Intent (opcional)
         val tituloEspectaculo = intent?.getStringExtra("titulo") ?: "Espectáculo"
         val horario = intent?.getStringExtra("horario") ?: ""
+
+        Log.d("NOTIFICACION", "Título: $tituloEspectaculo")
+        Log.d("NOTIFICACION", "Horario: $horario")
 
         val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
@@ -42,5 +47,6 @@ class Notificacion : BroadcastReceiver() {
             .build()
 
         notificationManager.notify(NOTIFICATION_ID, notificacion)
+        Log.d("NOTIFICACION", "✅ Notificación mostrada")
     }
 }
