@@ -15,6 +15,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.puy_du_fou_experience.databinding.FragmentDetalleEspectaculosBinding
 import com.example.puy_du_fou_experience.manager.FavoritosManager
+import com.example.puy_du_fou_experience.notificacion.NotificationHelper
 import com.example.puy_du_fou_experience.notificacion.ProgramacionNotificacion
 
 
@@ -61,6 +62,10 @@ class DetalleEspectaculosFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // ← AÑADIR ESTO
+        NotificationHelper.crearCanalNotificacion(requireContext())
+        Log.d("DETALLE_FRAGMENT", "Canal de notificación creado")
+
         val nombre = arguments?.getString("nombre") ?: ""
         val imagen = arguments?.getInt("imagen") ?: 0
         val horarios = arguments?.getString("horarios") ?: ""
@@ -83,7 +88,6 @@ class DetalleEspectaculosFragment : Fragment() {
             tvDescripcionDetalle.text = descripcion
             toggleFav.isChecked = favManager.esFavorito(nombre)
 
-
             toggleFav.setOnCheckedChangeListener { _, isChecked ->
                 if (isChecked) {
                     favManager.agregarFavorito(nombre)
@@ -97,7 +101,7 @@ class DetalleEspectaculosFragment : Fragment() {
                 Log.d("DETALLE_FRAGMENT", "========================================")
                 Log.d("DETALLE_FRAGMENT", "BOTÓN RECORDATORIO PRESIONADO")
                 Log.d("DETALLE_FRAGMENT", "========================================")
-                verificarPermisoYCrearRecordatorio( nombre, horarios)
+                verificarPermisoYCrearRecordatorio(nombre, horarios)
             }
         }
     }

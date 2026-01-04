@@ -45,7 +45,7 @@ abstract class EspectaculosDataBase : RoomDatabase() {
                 titulo = "El Tambor de la Libertad",
                 imagen = R.drawable.eltambor,
                 descripcion = "Épica de la resistencia de Toledo en 1812 contra las tropas de Napoleón.",
-                horarios = "17:30",
+                horarios = "21:34",
                 duracion = "30 minutos aprox.",
                 zona = "Al aire libre (Próximo a La Venta de Isidro)",
                 precio = 10.00,
