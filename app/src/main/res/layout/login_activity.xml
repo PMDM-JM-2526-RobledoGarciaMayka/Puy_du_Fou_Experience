@@ -7,17 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".login.LoginActivity">
 
-    <ImageView
-        android:id="@+id/ivFondoAmarillo"
-        android:layout_width="531dp"
-        android:layout_height="1103dp"
-        android:src="@drawable/fondo_gris_azul"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.216"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.433" />
 
     <TextView
         android:id="@+id/tvnombreapp"
@@ -56,43 +45,42 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.057"
+        app:layout_constraintHorizontal_bias="0.142"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvInicioSesion"
         app:layout_constraintVertical_bias="0.09" />
 
     <EditText
         android:id="@+id/etUsuario"
-        android:layout_width="371dp"
-        android:layout_height="37dp"
+        android:layout_width="334dp"
+        android:layout_height="38dp"
         android:ems="10"
         android:hint="@string/ingrese_el_usuario"
         android:inputType="text"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintHorizontal_bias="0.54"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvUser"
-        app:layout_constraintVertical_bias="0.042" />
+        app:layout_constraintVertical_bias="0.046" />
 
     <TextView
         android:id="@+id/tvPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
         android:text="@string/contrasenia"
         android:textSize="15sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/ivFondoAmarillo"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.047"
+        app:layout_constraintHorizontal_bias="0.121"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etUsuario"
-        app:layout_constraintVertical_bias="0.106" />
+        app:layout_constraintTop_toBottomOf="@+id/etUsuario" />
 
     <EditText
         android:id="@+id/etContrasenia"
-        android:layout_width="374dp"
+        android:layout_width="336dp"
         android:layout_height="40dp"
         android:ems="10"
         android:hint="@string/ingrese_la_contrasenia"
@@ -100,10 +88,10 @@
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.432"
+        app:layout_constraintHorizontal_bias="0.533"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvPassword"
-        app:layout_constraintVertical_bias="0.112" />
+        app:layout_constraintVertical_bias="0.065" />
 
     <Button
         android:id="@+id/bttnAcceder"

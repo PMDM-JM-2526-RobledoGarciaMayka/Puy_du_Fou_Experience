@@ -5,8 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.puy_du_fou_experience.R
 import com.example.puy_du_fou_experience.databinding.FragmentDetalleEspectaculosBinding
+
 
 class DetalleEspectaculosFragment : Fragment() {
     private var _binding: FragmentDetalleEspectaculosBinding? = null
@@ -40,20 +40,20 @@ class DetalleEspectaculosFragment : Fragment() {
             imgDetalle.setImageResource(imagen)
             tvHorariosDetalle.text = "Horario: $horarios"
             tvDuracionDetalle.text = "Duración: $duracion"
-            tvZonaDetalle.text = zona
+            tvZonaDetalle.text = "Zona: $zona"
             tvPrecioDetalle.text = "Precio: $precio€"
             tvEdadDetalle.text = "Restricción de edad a menores de $restriccionEdad"
             tvDescripcionDetalle.text = descripcion
-            //toggleFav.isChecked = favManager.esFavorito(nombre)
+            toggleFav.isChecked = favManager.esFavorito(nombre)
 
 
-            /*toggleFav.setOnCheckedChangeListener { _, isChecked ->
+            toggleFav.setOnCheckedChangeListener { _, isChecked ->
                 if (isChecked) {
                     favManager.agregarFavorito(nombre)
                 } else {
                     favManager.quitarFavorito(nombre)
                 }
-            }*/
+            }
 
             // Botón de recordatorio
             btnRecordatorio.setOnClickListener {

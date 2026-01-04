@@ -5,15 +5,6 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="888dp"
-        android:layout_height="1076dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/fondo_gris_azul" />
 
     <TextView
         android:id="@+id/tvIdioma"
@@ -24,11 +15,10 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.043"
+        app:layout_constraintHorizontal_bias="0.046"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.053"
-        android:textColor="#000000" />
+        app:layout_constraintVertical_bias="0.125" />
 
     <RadioGroup
         android:id="@+id/rgIdioma"
@@ -45,15 +35,13 @@
             android:id="@+id/rbEspaniol"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/espaniol"
-            android:textColor="#000000" />
+            android:text="@string/espaniol"/>
 
         <RadioButton
             android:id="@+id/rbIngles"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/ingles"
-            android:textColor="#000000" />
+            android:text="@string/ingles"/>
 
     </RadioGroup>
 
@@ -69,8 +57,7 @@
         app:layout_constraintHorizontal_bias="0.045"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rgIdioma"
-        app:layout_constraintVertical_bias="0.116"
-        android:textColor="#000000" />
+        app:layout_constraintVertical_bias="0.116"/>
 
     <Switch
         android:id="@+id/switchNotificaciones"
@@ -95,8 +82,7 @@
         app:layout_constraintHorizontal_bias="0.045"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/switchNotificaciones"
-        app:layout_constraintVertical_bias="0.218"
-        android:textColor="#000000" />
+        app:layout_constraintVertical_bias="0.218"/>
 
     <RadioGroup
         android:id="@+id/rgTema"
@@ -113,15 +99,13 @@
             android:id="@+id/rbClaro"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/claro"
-            android:textColor="#000000" />
+            android:text="@string/claro"/>
 
         <RadioButton
             android:id="@+id/rbOscuro"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/oscuro"
-            android:textColor="#000000" />
+            android:text="@string/oscuro"/>
     </RadioGroup>
 
     <Button
