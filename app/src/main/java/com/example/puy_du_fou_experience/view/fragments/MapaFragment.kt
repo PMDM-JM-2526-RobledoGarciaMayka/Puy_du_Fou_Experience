@@ -126,6 +126,8 @@ class MapaFragment : Fragment(), OnMapReadyCallback {
                 val detalleFragment = DetalleEspectaculosFragment().apply {
                     arguments = Bundle().apply {
                         putInt("ID_ESPECTACULO", show.id)
+                        putString("nombre", show.titulo)
+                        putString("horarios", show.horarios)
                     }
                 }
 

@@ -42,6 +42,8 @@ class FavoritosFragment : Fragment() {
             val detalleFragment = DetalleEspectaculosFragment().apply {
                 arguments = Bundle().apply {
                     putInt("ID_ESPECTACULO", espectaculo.id)
+                    putString("nombre", espectaculo.titulo)
+                    putString("horarios", espectaculo.horarios)
                 }
             }
 
