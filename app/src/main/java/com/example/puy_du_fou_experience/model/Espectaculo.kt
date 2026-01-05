@@ -32,5 +32,14 @@ data class Espectaculo(
 
     @ColumnInfo(name = "restriccionEdad")
     var resticcionEdad: String,
+
+    @ColumnInfo(name = "latitud")
+    var latitud: Double,
+
+    @ColumnInfo(name = "longitud")
+    var longitud: Double,
+
+    @ColumnInfo(name = "tipo")
+    var tipo: String
 )
 

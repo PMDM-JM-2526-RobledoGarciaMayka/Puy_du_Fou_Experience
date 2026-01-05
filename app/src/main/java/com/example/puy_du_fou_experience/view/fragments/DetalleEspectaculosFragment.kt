@@ -11,11 +11,14 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
+import com.example.puy_du_fou_experience.data.EspectaculosDataBase
 import com.example.puy_du_fou_experience.databinding.FragmentDetalleEspectaculosBinding
 import com.example.puy_du_fou_experience.otras_utilidades.manager.FavoritosManager
 import com.example.puy_du_fou_experience.otras_utilidades.notificacion.ActivarDesactivarNotificaciones
 import com.example.puy_du_fou_experience.otras_utilidades.notificacion.NotificationHelper
 import com.example.puy_du_fou_experience.otras_utilidades.notificacion.ProgramacionNotificacion
+import kotlinx.coroutines.launch
 import java.util.Calendar
 
 
@@ -119,6 +122,35 @@ class DetalleEspectaculosFragment : Fragment() {
                 }
 
                 verificarPermisoYCrearRecordatorio(nombre, horarios)
+            }
+        }
+        val id = arguments?.getInt("ID_ESPECTACULO") ?: return
+        val db = EspectaculosDataBase.getDatabase(requireContext())
+
+        lifecycleScope.launch {
+            val espectaculo = db.EspectaculosDAO().getEspectaculoporId(id)
+            binding.apply {
+                tvNombreDetalle.text = espectaculo.titulo
+                imgDetalle.setImageResource(espectaculo.imagen)
+                tvHorariosDetalle.text = "Horario: ${espectaculo.horarios}"
+                tvDuracionDetalle.text = "Duración: ${espectaculo.duracion}"
+                tvZonaDetalle.text = "Zona: ${espectaculo.zona}"
+                tvPrecioDetalle.text = "Precio: ${espectaculo.precio}€"
+                tvEdadDetalle.text = "Restricción de edad a menores de ${espectaculo.resticcionEdad}"
+                tvDescripcionDetalle.text = espectaculo.descripcion
+
+                val favManager = FavoritosManager(requireContext())
+                toggleFav.isChecked = favManager.esFavorito(espectaculo.titulo)
+
+                toggleFav.setOnCheckedChangeListener { _, isChecked ->
+                    if (isChecked) {
+                        favManager.agregarFavorito(espectaculo.titulo)
+                        Toast.makeText(requireContext(), "Añadido a favoritos", Toast.LENGTH_SHORT).show()
+                    } else {
+                        favManager.quitarFavorito(espectaculo.titulo)
+                        Toast.makeText(requireContext(), "Eliminado de favoritos", Toast.LENGTH_SHORT).show()
+                    }
+                }
             }
         }
     }

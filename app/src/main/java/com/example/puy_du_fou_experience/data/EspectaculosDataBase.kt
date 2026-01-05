@@ -26,16 +26,17 @@ abstract class EspectaculosDataBase : RoomDatabase() {
                     context.applicationContext,
                     EspectaculosDataBase::class.java,
                     "espectaculos_database"
-                ).addCallback(object : Callback() {
-                    override fun onCreate(db: SupportSQLiteDatabase) {
-                        super.onCreate(db)
-                        CoroutineScope(Dispatchers.IO).launch {
-                            INSTANCE?.EspectaculosDAO()
-                                ?.insert(datosIniciales())
+                )
+                    .addCallback(object : Callback() {
+                        override fun onCreate(db: SupportSQLiteDatabase) {
+                            super.onCreate(db)
+                            CoroutineScope(Dispatchers.IO).launch {
+                                getDatabase(context).EspectaculosDAO().insert(datosIniciales())
+                            }
                         }
-                    }
-                }).build()
-
+                    })
+                    .fallbackToDestructiveMigration()
+                    .build()
                 INSTANCE = instance
                 instance
             }
@@ -50,7 +51,10 @@ abstract class EspectaculosDataBase : RoomDatabase() {
                     duracion = "30 minutos aprox.",
                     zona = "Al aire libre (Próximo a La Venta de Isidro)",
                     precio = 10.00,
-                    resticcionEdad = "18 años"
+                    resticcionEdad = "18 años",
+                    latitud = 39.83492836954292,
+                    longitud = -4.0949061695927185,
+                    tipo = "Espectáculo"
                 ),
                 Espectaculo(
                     titulo = "El Último Cantar",
@@ -60,7 +64,10 @@ abstract class EspectaculosDataBase : RoomDatabase() {
                     duracion = "30 minutos",
                     zona = "Interior (La Puebla Real)",
                     precio = 5.00,
-                    resticcionEdad = "16 años"
+                    resticcionEdad = "16 años",
+                    latitud = 39.83733840716522,
+                    longitud = -4.091685116879353,
+                    tipo = "Teatro"
                 ),
                 Espectaculo(
                     titulo = "A Pluma y Espada",
@@ -70,7 +77,10 @@ abstract class EspectaculosDataBase : RoomDatabase() {
                     duracion = "30 minutos",
                     zona = "Interior (Corral de Comedias)",
                     precio = 6.00,
-                    resticcionEdad = "15 años"
+                    resticcionEdad = "15 años",
+                    latitud = 39.83560832424643,
+                    longitud = -4.094249879118615,
+                    tipo = "Teatro"
                 ),
                 Espectaculo(
                     titulo = "Cetrería de Reyes",
@@ -80,7 +90,10 @@ abstract class EspectaculosDataBase : RoomDatabase() {
                     duracion = "30 minutos",
                     zona = "Aire libre (Cerca de El Askar Andalusí)",
                     precio = 7.50,
-                    resticcionEdad = "20 años"
+                    resticcionEdad = "20 años",
+                    latitud = 39.83613558738456,
+                    longitud = -4.097355877144278,
+                    tipo = "Exhibición"
                 ),
                 Espectaculo(
                     titulo = "El Sueño de Toledo",
@@ -90,7 +103,10 @@ abstract class EspectaculosDataBase : RoomDatabase() {
                     duracion = "70 - 80 minutos",
                     zona = "Escenario Nocturno (Acceso desde El Arrabal)",
                     precio = 9.50,
-                    resticcionEdad = "18 años"
+                    resticcionEdad = "18 años",
+                    latitud = 39.8378779985117,
+                    longitud = -4.094861422780273,
+                    tipo = "Teatro"
                 ),
                 Espectaculo(
                     titulo = "De Tal Palo...",
@@ -100,7 +116,10 @@ abstract class EspectaculosDataBase : RoomDatabase() {
                     duracion = "20 minutos",
                     zona = "Aire libre (Villanueva del Corral)",
                     precio = 5.0,
-                    resticcionEdad = "15 años"
+                    resticcionEdad = "15 años",
+                    latitud = 39.83613558738397,
+                    longitud = -4.094813143023948,
+                    tipo = "Espectáculo"
                 ),
                 Espectaculo(
                     titulo = "El Misterio de Sorbaces",
@@ -110,7 +129,10 @@ abstract class EspectaculosDataBase : RoomDatabase() {
                     duracion = "25 - 30 minutos",
                     zona = "Aire libre (Gradas de Sorbaces)",
                     precio = 6.50,
-                    resticcionEdad = "16 años"
+                    resticcionEdad = "16 años",
+                    latitud = 39.83573674117514,
+                    longitud = -4.0929976582575,
+                    tipo = "Teatro"
                 ),
                 Espectaculo(
                     titulo = "Allende la Mar Océana",
@@ -120,7 +142,10 @@ abstract class EspectaculosDataBase : RoomDatabase() {
                     duracion = "25 minutos",
                     zona = "Inmersivo (Pasaje continuo)",
                     precio = 8.0,
-                    resticcionEdad = "15 años"
+                    resticcionEdad = "15 años",
+                    latitud = 39.83716524728454,
+                    longitud = -4.093864924199809,
+                    tipo = "Espectáculo"
                 )
             )
 

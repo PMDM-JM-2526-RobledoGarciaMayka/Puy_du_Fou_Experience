@@ -41,15 +41,11 @@ class FavoritosFragment : Fragment() {
         adapter = EspectaculosAdapter { espectaculo ->
             val detalleFragment = DetalleEspectaculosFragment().apply {
                 arguments = Bundle().apply {
-                    putInt("imagen", espectaculo.imagen)
-                    putString("nombre", espectaculo.titulo)
-                    putString("horarios", espectaculo.horarios)
-                    putString("duracion", espectaculo.duracion)
-                    putString("zona", espectaculo.zona)
+                    putInt("ID_ESPECTACULO", espectaculo.id)
                 }
             }
 
-            parentFragmentManager.beginTransaction()
+            requireActivity().supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, detalleFragment)
                 .addToBackStack(null)
                 .commit()

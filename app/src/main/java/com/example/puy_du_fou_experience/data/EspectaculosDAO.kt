@@ -12,9 +12,13 @@ interface EspectaculosDAO {
     @Insert
     suspend fun insert(espectaculo: List<Espectaculo>)
 
+
     @Query("SELECT * FROM espectaculo ORDER BY id ASC")
     suspend fun getAllEspectaculos(): List<Espectaculo>
 
     @Query("SELECT * FROM espectaculo WHERE titulo = :titulo")
     suspend fun getEspectaculoporTitulo(titulo: String): Espectaculo
+
+    @Query("SELECT * FROM espectaculo WHERE id = :id")
+    suspend fun getEspectaculoporId(id: Int): Espectaculo
 }

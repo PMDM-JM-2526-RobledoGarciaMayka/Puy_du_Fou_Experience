@@ -40,18 +40,11 @@ class EspectaculosFragment : Fragment() {
         espectaculosAdapter = EspectaculosAdapter { espectaculo ->
             val detalleFragment = DetalleEspectaculosFragment().apply {
                 arguments = Bundle().apply {
-                    putString("nombre", espectaculo.titulo)
-                    putInt("imagen", espectaculo.imagen)
-                    putString("horarios", espectaculo.horarios)
-                    putString("duracion", espectaculo.duracion)
-                    putString("zona", espectaculo.zona)
-                    putString("descripcion", espectaculo.descripcion)
-                    putDouble("precio", espectaculo.precio)
-                    putString("restriccionEdad", espectaculo.resticcionEdad)
+                    putInt("ID_ESPECTACULO", espectaculo.id)
                 }
             }
 
-            parentFragmentManager.beginTransaction()
+            requireActivity().supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, detalleFragment)
                 .addToBackStack(null)
                 .commit()

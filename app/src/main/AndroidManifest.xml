@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Permisos de notificaciones -->
+
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
 
     <!-- Permisos de alarmas exactas (CRÍTICO para Android 12+) -->
@@ -11,6 +12,10 @@
 
     <!-- Permiso para despertar el dispositivo -->
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
+
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -21,6 +26,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Puy_du_Fou_Experience">
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_api" />
+
         <activity
             android:name=".view.login.LoginActivity"
             android:exported="true">
