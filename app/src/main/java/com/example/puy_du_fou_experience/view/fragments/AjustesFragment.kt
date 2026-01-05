@@ -14,6 +14,7 @@ import com.example.puy_du_fou_experience.otras_utilidades.notificacion.ActivarDe
 import com.example.puy_du_fou_experience.viewmodel.AjustesViewModel
 import java.util.Locale
 
+
 class AjustesFragment : Fragment() {
     private lateinit var viewModel: AjustesViewModel
     private var _binding: FragmentAjustesBinding? = null

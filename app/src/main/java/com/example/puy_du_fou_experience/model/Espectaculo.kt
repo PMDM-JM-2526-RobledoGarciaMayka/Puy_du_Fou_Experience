@@ -33,3 +33,4 @@ data class Espectaculo(
     @ColumnInfo(name = "restriccionEdad")
     var resticcionEdad: String,
 )
+

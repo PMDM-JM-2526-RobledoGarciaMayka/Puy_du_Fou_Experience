@@ -14,7 +14,6 @@ import com.example.puy_du_fou_experience.viewmodel.EspectaculosViewModel
 import com.example.puydufouexperience.fragments.DetalleEspectaculosFragment
 
 
-
 class EspectaculosFragment : Fragment() {
     private lateinit var espectaculosViewModel: EspectaculosViewModel
     private lateinit var espectaculosAdapter: EspectaculosAdapter

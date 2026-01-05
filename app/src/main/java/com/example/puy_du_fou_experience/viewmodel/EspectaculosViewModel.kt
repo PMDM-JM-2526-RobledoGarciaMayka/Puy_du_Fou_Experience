@@ -12,6 +12,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
+
 class EspectaculosViewModel (application: Application) : AndroidViewModel(application) {
     private val repository: EspectaculosRepository
 

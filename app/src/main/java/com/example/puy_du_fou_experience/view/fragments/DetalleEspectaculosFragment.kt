@@ -2,7 +2,6 @@ package com.example.puydufouexperience.fragments
 
 import android.Manifest
 import android.content.pm.PackageManager
-import android.icu.util.Calendar
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -17,6 +16,8 @@ import com.example.puy_du_fou_experience.otras_utilidades.manager.FavoritosManag
 import com.example.puy_du_fou_experience.otras_utilidades.notificacion.ActivarDesactivarNotificaciones
 import com.example.puy_du_fou_experience.otras_utilidades.notificacion.NotificationHelper
 import com.example.puy_du_fou_experience.otras_utilidades.notificacion.ProgramacionNotificacion
+import java.util.Calendar
+
 
 class DetalleEspectaculosFragment : Fragment() {
     private var _binding: FragmentDetalleEspectaculosBinding? = null

@@ -2,6 +2,7 @@ package com.example.puy_du_fou_experience.otras_utilidades.manager
 
 import android.content.Context
 
+
 class FavoritosManager (context: Context) {
     private val prefs = context.getSharedPreferences(
         "favoritos_prefs",

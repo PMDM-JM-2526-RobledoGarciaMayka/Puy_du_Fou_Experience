@@ -9,6 +9,7 @@ import androidx.core.app.NotificationCompat
 import com.example.puy_du_fou_experience.R
 import com.example.puy_du_fou_experience.view.navegacion_menu.MenuActivity
 
+
 class Notificacion : BroadcastReceiver() {
 
     companion object {
@@ -43,3 +44,4 @@ class Notificacion : BroadcastReceiver() {
         notificationManager.notify(NOTIFICATION_ID, notificacion)
     }
 }
+

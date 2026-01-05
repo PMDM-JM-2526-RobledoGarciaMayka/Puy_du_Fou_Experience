@@ -14,12 +14,12 @@ import com.example.puy_du_fou_experience.view.fragments.MapaFragment
 import com.example.puydufouexperience.fragments.FavoritosFragment
 import java.util.Locale
 
+
 class MenuActivity : AppCompatActivity() {
 
     private lateinit var binding: MenuActivityBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        // IMPORTANTE: Aplicar configuraciones ANTES de super.onCreate()
         aplicarConfiguracionesGuardadas()
 
         super.onCreate(savedInstanceState)

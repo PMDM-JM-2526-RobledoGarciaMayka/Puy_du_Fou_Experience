@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.puy_du_fou_experience.R
 import com.example.puy_du_fou_experience.model.Espectaculo
 
+
 class EspectaculosAdapter(
     private val onItemClick: (Espectaculo) -> Unit
 ): RecyclerView.Adapter<EspectaculosAdapter.EspectaculoViewHolder>() {
