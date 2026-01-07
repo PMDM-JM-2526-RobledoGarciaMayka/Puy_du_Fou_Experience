@@ -6,14 +6,14 @@
 
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
 
-    <!-- Permisos de alarmas exactas (CRÍTICO para Android 12+) -->
+    <!-- Permisos de alarmas exactas -->
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
     <uses-permission android:name="android.permission.USE_EXACT_ALARM"/>
 
     <!-- Permiso para despertar el dispositivo -->
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
 
-
+    <!-- Permisos de ubicación -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 

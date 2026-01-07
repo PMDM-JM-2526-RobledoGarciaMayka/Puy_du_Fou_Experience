@@ -33,12 +33,14 @@ class AjustesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //Inicializar gestor de notificaciones y ViewModel
         notificacionesSharedPrefs = ActivarDesactivarNotificaciones(requireContext())
         viewModel = ViewModelProvider(this)[AjustesViewModel::class.java]
 
-        // Configurar el switch de notificaciones
+        //Configurar el switch de notificaciones
         binding.switchNotificaciones.isChecked = notificacionesSharedPrefs.activadas()
 
+        //Listener para cambios en el switch de notificaciones
         binding.switchNotificaciones.setOnCheckedChangeListener { _, isChecked ->
             notificacionesSharedPrefs.setActivadas(isChecked)
             val mensaje = if (isChecked) {
@@ -49,7 +51,7 @@ class AjustesFragment : Fragment() {
             Toast.makeText(requireContext(), mensaje, Toast.LENGTH_SHORT).show()
         }
 
-        // Observar ajustes del ViewModel y actualizar UI
+        //Observar el idioma seleccionado y actualizar el RadioGroup correspondiente
         viewModel.idiomaSeleccionado.observe(viewLifecycleOwner) { idioma ->
             when (idioma) {
                 "es" -> binding.rgIdioma.check(binding.rbEspaniol.id)
@@ -57,10 +59,12 @@ class AjustesFragment : Fragment() {
             }
         }
 
+        //Observar el estado de las notificaciones y actualizar el Switch
         viewModel.notificacionesActivadas.observe(viewLifecycleOwner) { activadas ->
             binding.switchNotificaciones.isChecked = activadas
         }
 
+        //Observar el tema seleccionado y actualizar el RadioGroup correspondiente
         viewModel.temaSeleccionado.observe(viewLifecycleOwner) { tema ->
             when (tema) {
                 "claro" -> binding.rgTema.check(binding.rbClaro.id)
@@ -68,22 +72,26 @@ class AjustesFragment : Fragment() {
             }
         }
 
-        // Botón Guardar
+        //Configurar el botón Guardar para aplicar todos los ajustes
         binding.bttnGuardar.setOnClickListener {
+            //Obtener el idioma seleccionado del RadioGroup
             val idioma = when (binding.rgIdioma.checkedRadioButtonId) {
                 binding.rbEspaniol.id -> "es"
                 binding.rbIngles.id -> "en"
                 else -> "es"
             }
 
+            //Obtener el estado de las notificaciones del Switch
             val notificaciones = binding.switchNotificaciones.isChecked
 
+            //Obtener el tema seleccionado del RadioGroup
             val tema = when (binding.rgTema.checkedRadioButtonId) {
                 binding.rbClaro.id -> "claro"
                 binding.rbOscuro.id -> "oscuro"
                 else -> "claro"
             }
 
+            //Guardar todos los ajustes en el ViewModel (y por tanto en SharedPreferences)
             viewModel.guardarAjustes(idioma, notificaciones, tema)
 
             // Aplicar cambios
@@ -94,6 +102,7 @@ class AjustesFragment : Fragment() {
         }
     }
 
+    //Aplica el idioma seleccionado a la aplicación.
     private fun aplicarIdioma(codigoIdioma: String) {
         val locale = Locale(codigoIdioma)
         Locale.setDefault(locale)
@@ -106,10 +115,11 @@ class AjustesFragment : Fragment() {
             requireContext().resources.displayMetrics
         )
 
-        // Reiniciar actividad para aplicar cambios
+        //Reiniciar actividad para aplicar los cambios de idioma en toda la interfaz
         activity?.recreate()
     }
 
+    //Aplica el tema seleccionado a la aplicación.
     private fun aplicarTema(tema: String) {
         when (tema) {
             "claro" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)

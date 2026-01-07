@@ -6,8 +6,9 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "espectaculo")
 data class Espectaculo(
+
     @PrimaryKey(autoGenerate = true)
-    var id: Int = 0,
+    var id: Int = 0, //ID autogenerado
 
     @ColumnInfo(name = "titulo")
     var titulo: String,
@@ -40,6 +41,6 @@ data class Espectaculo(
     var longitud: Double,
 
     @ColumnInfo(name = "tipo")
-    var tipo: String
+    var tipo: String // Tipo de espectáculo (Espectáculo, Teatro, Exhíbición de aves rapaces)
 )
 

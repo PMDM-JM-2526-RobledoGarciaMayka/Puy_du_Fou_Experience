@@ -27,6 +27,7 @@ abstract class EspectaculosDataBase : RoomDatabase() {
                     EspectaculosDataBase::class.java,
                     "espectaculos_database"
                 )
+                    // Callback que se ejecuta cuando se crea la base de datos por primera vez
                     .addCallback(object : Callback() {
                         override fun onCreate(db: SupportSQLiteDatabase) {
                             super.onCreate(db)
@@ -35,12 +36,13 @@ abstract class EspectaculosDataBase : RoomDatabase() {
                             }
                         }
                     })
-                    .fallbackToDestructiveMigration()
+                    .fallbackToDestructiveMigration(false)
                     .build()
                 INSTANCE = instance
                 instance
             }
         }
+        //Espectáculos
         private fun datosIniciales(): List<Espectaculo> {
             return listOf(
                 Espectaculo(

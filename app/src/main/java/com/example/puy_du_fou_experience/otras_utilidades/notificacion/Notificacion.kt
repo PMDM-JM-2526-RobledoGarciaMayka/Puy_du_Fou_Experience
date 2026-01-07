@@ -16,14 +16,19 @@ class Notificacion : BroadcastReceiver() {
         private const val NOTIFICATION_ID = 1
     }
 
+
     override fun onReceive(context: Context?, intent: Intent?) {
         context ?: return
 
+        //Extrae el título del espectáculo
         val tituloEspectaculo = intent?.getStringExtra("titulo") ?: "Espectáculo"
+        //Extrae el horario del espectáculo
         val horario = intent?.getStringExtra("horario") ?: ""
 
+        //Obtiene el servicio de notificaciones del sistema
         val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
+        //Crea un intent para abrir la aplicación cuando el usuario toque la notificación
         val intentAbrir = Intent(context, MenuActivity::class.java)
         val pendingIntent = PendingIntent.getActivity(
             context,
@@ -32,6 +37,7 @@ class Notificacion : BroadcastReceiver() {
             PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
         )
 
+        // Contenido de la notificación y configuración apropiada
         val notificacion = NotificationCompat.Builder(context, NotificationHelper.CHANNEL_ID)
             .setContentTitle("¡$tituloEspectaculo va a comenzar en 15 minutos!")
             .setContentText("El espectáculo comienza a las $horario")
@@ -41,6 +47,7 @@ class Notificacion : BroadcastReceiver() {
             .setAutoCancel(true)
             .build()
 
+        // Mostrar la notificación
         notificationManager.notify(NOTIFICATION_ID, notificacion)
     }
 }

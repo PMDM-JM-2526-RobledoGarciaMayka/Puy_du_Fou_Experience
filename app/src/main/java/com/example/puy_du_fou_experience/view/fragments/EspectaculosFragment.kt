@@ -37,8 +37,11 @@ class EspectaculosFragment : Fragment() {
         espectaculosViewModel = ViewModelProvider(this).get(EspectaculosViewModel::class.java)
         binding.rvEspectaculos.layoutManager = LinearLayoutManager(requireContext())
 
+        //Crear el adaptador con un lambda que maneja el click en cada espectáculo
         espectaculosAdapter = EspectaculosAdapter { espectaculo ->
+            //Crear una instancia del fragmento de detalle
             val detalleFragment = DetalleEspectaculosFragment().apply {
+                //Crear un Bundle con los datos del espectáculo seleccionado
                 arguments = Bundle().apply {
                     putInt("ID_ESPECTACULO", espectaculo.id)
                     putString("nombre", espectaculo.titulo)
@@ -46,21 +49,25 @@ class EspectaculosFragment : Fragment() {
                 }
             }
 
+            //Navegar al fragmento de detalle
             requireActivity().supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, detalleFragment)
                 .addToBackStack(null)
                 .commit()
         }
 
+        //Configurar el RecyclerView
         binding.rvEspectaculos.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = this@EspectaculosFragment.espectaculosAdapter
         }
 
+        //Observar los cambios en la lista de espectáculos desde el ViewModel
         espectaculosViewModel.listaEspectaculos.observe(viewLifecycleOwner) { lista ->
+            //Cuando la lista cambia, actualizar el adaptador con los nuevos datos
             espectaculosAdapter.submitList(lista)
         }
-
+        //Cargar la lista inicial de espectáculos
         espectaculosViewModel.cargarEspectaculos()
     }
 

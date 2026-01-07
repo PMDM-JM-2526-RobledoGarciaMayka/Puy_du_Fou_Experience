@@ -11,6 +11,7 @@ import android.widget.Toast
 
 object ProgramacionNotificacion {
 
+    //Programa una notificación para un espectáculo en un momento específico.
     fun programarNotificacion(
         context: Context,
         tituloEspectaculo: String,
@@ -22,8 +23,10 @@ object ProgramacionNotificacion {
             putExtra("horario", horario)
         }
 
+        //Genera un código único basado en el título para poder identificar y cancelar alarmas específicas
         val requestCode = tituloEspectaculo.hashCode()
 
+        //PendingIntent que envuelve el intent para uso con AlarmManager
         val pendingIntent = PendingIntent.getBroadcast(
             context,
             requestCode,
@@ -31,12 +34,15 @@ object ProgramacionNotificacion {
             PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
         )
 
+        //Obtiene el servicio de alarmas del sistema
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
         try {
+            //Permiso para utilizar alarmas exactas
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
                 val puedeUsarAlarmasExactas = alarmManager.canScheduleExactAlarms()
 
+                // Si no tiene permiso, redirige al usuario a la configuración del sistema
                 if (!puedeUsarAlarmasExactas) {
                     val intentConfig = Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM)
                     intentConfig.flags = Intent.FLAG_ACTIVITY_NEW_TASK
@@ -51,6 +57,7 @@ object ProgramacionNotificacion {
                 }
             }
 
+            //Programar la alarma exacta
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 alarmManager.setExactAndAllowWhileIdle(
                     AlarmManager.RTC_WAKEUP,
@@ -65,6 +72,7 @@ object ProgramacionNotificacion {
                 )
             }
 
+            //Excepción si faltan permisos
         } catch (e: SecurityException) {
             Toast.makeText(
                 context,
@@ -73,8 +81,6 @@ object ProgramacionNotificacion {
             ).show()
             e.printStackTrace()
 
-        } catch (e: Exception) {
-            e.printStackTrace()
         }
     }
 }
